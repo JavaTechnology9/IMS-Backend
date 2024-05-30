@@ -22,6 +22,7 @@ public class RegistrationController {
             Optional<Registration> byUsername = registrationService.findByUsername(registration.getUsername());
             if(byUsername.isEmpty()){
                 if(registrationService.save(registration)!=null){
+                    registrationService.sendWelcomeEmail(registration.getUsername());
                     return ResponseEntity.ok("Registration successful");
                 }else {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Registration failed");
