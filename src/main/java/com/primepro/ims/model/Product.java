@@ -4,18 +4,20 @@ import jakarta.persistence.*;
 
 @Entity
 @Table
-public class Products {
+public class Product {
     @Id
     @GeneratedValue
     @Column(name = "product_id")
     private long id;
     private String productCode;
     private String productName;
-    private double costPrice;
-    private double sellPrice;
-    private String brandName;
+    private String costPrice;
+    private String sellingPrice;
+    private String productBrand;
 
-    public Products() {
+    private int quantity;
+
+    public Product() {
     }
 
 
@@ -43,28 +45,35 @@ public class Products {
         this.productName = productName;
     }
 
-    public double getCostPrice() {
+    public String getCostPrice() {
         return costPrice;
     }
 
-    public void setCostPrice(double costPrice) {
+    public void setCostPrice(String costPrice) {
         this.costPrice = costPrice;
     }
 
-    public double getSellPrice() {
-        return sellPrice;
+    public String getSellingPrice() {
+        return sellingPrice;
     }
 
-    public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setSellingPrice(String sellingPrice) {
+        this.sellingPrice = sellingPrice;
     }
 
-    public String getBrandName() {
-        return brandName;
+    public String getProductBrand() {
+        return productBrand;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

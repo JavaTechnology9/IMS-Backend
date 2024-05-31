@@ -1,4 +1,4 @@
-package com.primepro.ims.config;
+package com.primepro.ims.util;
 
 import org.mindrot.jbcrypt.BCrypt;
 

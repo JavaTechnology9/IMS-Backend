@@ -13,7 +13,7 @@ public class CurrentStock {
     private int quantity;
     @OneToOne
     @JoinColumn(name = "product_id")
-    private Products products;
+    private Product product;
     @OneToOne
     @JoinColumn(name = "purchase_id")
     private PurchaseInfo purchaseInfo;
@@ -45,12 +45,12 @@ public class CurrentStock {
         this.quantity = quantity;
     }
 
-    public Products getProducts() {
-        return products;
+    public Product getProducts() {
+        return product;
     }
 
-    public void setProducts(Products products) {
-        this.products = products;
+    public void setProducts(Product product) {
+        this.product = product;
     }
 
     public PurchaseInfo getPurchaseInfo() {

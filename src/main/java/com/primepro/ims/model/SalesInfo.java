@@ -19,7 +19,7 @@ public class SalesInfo {
     private String soldBy;
     @OneToOne
     @JoinColumn(name = "product_id")
-    private Products products;
+    private Product product;
     public SalesInfo(){
 
     }
@@ -80,11 +80,11 @@ public class SalesInfo {
         this.soldBy = soldBy;
     }
 
-    public Products getProducts() {
-        return products;
+    public Product getProducts() {
+        return product;
     }
 
-    public void setProducts(Products products) {
-        this.products = products;
+    public void setProducts(Product product) {
+        this.product = product;
     }
 }

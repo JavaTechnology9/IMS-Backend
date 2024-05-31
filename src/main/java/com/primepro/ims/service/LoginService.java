@@ -1,6 +1,7 @@
 package com.primepro.ims.service;
 
-import com.primepro.ims.config.PasswordUtil;
+import com.primepro.ims.util.EmailService;
+import com.primepro.ims.util.PasswordUtil;
 import com.primepro.ims.model.Login;
 import com.primepro.ims.model.Registration;
 import com.primepro.ims.repository.RegistrationRepository;
@@ -16,12 +17,15 @@ public class LoginService {
 
     @Autowired
     private RegistrationRepository repository;
+    @Autowired
+    private EmailService emailService;
 
     public ResponseEntity<String> validateLogin(Login login) {
         Optional<Registration> byUsername = repository.findByUsername(login.getUsername());
         if (byUsername.isPresent()) {
             Registration registration = byUsername.get();
             if (PasswordUtil.checkPassword(login.getPassword(), registration.getPassword())) {
+                emailService.sendWelcomeEmail(login.getUsername(),"Successfully Login");
                 return ResponseEntity.ok("Login successful");
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Password does not match");
