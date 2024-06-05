@@ -1,7 +1,7 @@
 package com.primepro.ims.service;
 
 import com.primepro.ims.util.EmailService;
-import com.primepro.ims.util.PasswordUtil;
+import com.primepro.ims.util.CommonUtils;
 import com.primepro.ims.model.Login;
 import com.primepro.ims.model.Registration;
 import com.primepro.ims.repository.RegistrationRepository;
@@ -24,7 +24,7 @@ public class LoginService {
         Optional<Registration> byUsername = repository.findByUsername(login.getUsername());
         if (byUsername.isPresent()) {
             Registration registration = byUsername.get();
-            if (PasswordUtil.checkPassword(login.getPassword(), registration.getPassword())) {
+            if (CommonUtils.checkPassword(login.getPassword(), registration.getPassword())) {
                 emailService.sendWelcomeEmail(login.getUsername(),"Successfully Login");
                 return ResponseEntity.ok("Login successful");
             }

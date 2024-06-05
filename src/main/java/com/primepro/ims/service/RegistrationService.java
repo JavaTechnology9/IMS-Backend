@@ -1,13 +1,10 @@
 package com.primepro.ims.service;
 
 import com.primepro.ims.util.EmailService;
-import com.primepro.ims.util.PasswordUtil;
+import com.primepro.ims.util.CommonUtils;
 import com.primepro.ims.model.Registration;
 import com.primepro.ims.repository.RegistrationRepository;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -20,7 +17,7 @@ public class RegistrationService {
     private EmailService emailService;
 
     public Registration save(Registration registration) {
-        registration.setPassword(PasswordUtil.hashPassword(registration.getPassword()));
+        registration.setPassword(CommonUtils.hashPassword(registration.getPassword()));
         return registrationRepository.save(registration);
     }
     public Optional<Registration> findByUsername(String username) {

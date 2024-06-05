@@ -12,24 +12,16 @@ public class SalesInfo {
     @Column(name = "sales_id")
     private long salesId;
     private LocalDateTime dateTime;
-    private String productCode;
+    private String productName;
     private String customerCode;
     private int quantity;
-    private double revenue;
+    private double sellPrice;
     private String soldBy;
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
     public SalesInfo(){
 
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
     }
 
     public long getSalesId() {
@@ -40,12 +32,20 @@ public class SalesInfo {
         this.salesId = salesId;
     }
 
-    public String getProductCode() {
-        return productCode;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getCustomerCode() {
@@ -64,12 +64,12 @@ public class SalesInfo {
         this.quantity = quantity;
     }
 
-    public double getRevenue() {
-        return revenue;
+    public double getSellPrice() {
+        return sellPrice;
     }
 
-    public void setRevenue(double revenue) {
-        this.revenue = revenue;
+    public void setSellPrice(double sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
     public String getSoldBy() {
@@ -80,11 +80,11 @@ public class SalesInfo {
         this.soldBy = soldBy;
     }
 
-    public Product getProducts() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProducts(Product product) {
+    public void setProduct(Product product) {
         this.product = product;
     }
 }

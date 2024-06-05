@@ -10,14 +10,17 @@ public class PurchaseInfo {
     @GeneratedValue
     @Column(name = "purchase_id")
     private long purchaseId;
-    private String supplierCode;
-    private String productCode;
     private LocalDateTime purchaseDate;
     private int quantity;
-    private double price;
+    private String price;
+
     @OneToOne
     @JoinColumn(name = "supplier_id")
-    private Suppliers suppliers;
+    private Supplier supplier;
+
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public PurchaseInfo() {
     }
@@ -28,22 +31,6 @@ public class PurchaseInfo {
 
     public void setPurchaseId(long purchaseId) {
         this.purchaseId = purchaseId;
-    }
-
-    public String getSupplierCode() {
-        return supplierCode;
-    }
-
-    public void setSupplierCode(String supplierCode) {
-        this.supplierCode = supplierCode;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public LocalDateTime getPurchaseDate() {
@@ -62,19 +49,27 @@ public class PurchaseInfo {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
-    public Suppliers getSuppliers() {
-        return suppliers;
+    public Supplier getSupplier() {
+        return supplier;
     }
 
-    public void setSuppliers(Suppliers suppliers) {
-        this.suppliers = suppliers;
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

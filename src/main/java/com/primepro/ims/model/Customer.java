@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table
-public class Customers {
+public class Customer {
     @Id
     @GeneratedValue
     @Column(name = "customer_id")
@@ -13,10 +13,11 @@ public class Customers {
     private String customerCode;
     private String location;
     private String phone;
+    private String email;
     @OneToOne
     @JoinColumn(name = "sales_id")
     private SalesInfo salesInfo;
-    public Customers(){
+    public Customer(){
 
     }
 
@@ -66,5 +67,13 @@ public class Customers {
 
     public void setSalesInfo(SalesInfo salesInfo) {
         this.salesInfo = salesInfo;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
