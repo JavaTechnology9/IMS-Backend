@@ -1,6 +1,6 @@
 package com.primepro.ims.repository;
 
-import com.primepro.ims.model.Product;
+import com.primepro.ims.model.Login;
 import com.primepro.ims.model.Registration;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends CrudRepository<Product, Long> {
-
-    Optional<Product> findByProductName(String name);
+public interface LoginRepository extends CrudRepository<Login,Long> {
+    Optional<Login> findByUsername(String username);
 }

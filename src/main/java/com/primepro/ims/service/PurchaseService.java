@@ -32,7 +32,7 @@ public class PurchaseService {
         purchaseInfo.setPurchaseDate(LocalDateTime.now());
         purchaseInfo.setSupplier(loadSupplier(purchaseDetails.getSupplierName()));
         purchaseInfo.setPrice(purchaseDetails.getCostPrice());
-        purchaseInfo.setQuantity(purchaseInfo.getQuantity());
+        purchaseInfo.setQuantity(purchaseDetails.getQuantity());
         purchaseInfo.setProduct(saveProduct(purchaseDetails));
         try{
             PurchaseInfo save = purchaseRepository.save(purchaseInfo);

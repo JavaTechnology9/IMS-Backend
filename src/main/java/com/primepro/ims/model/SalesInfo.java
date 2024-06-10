@@ -12,14 +12,16 @@ public class SalesInfo {
     @Column(name = "sales_id")
     private long salesId;
     private LocalDateTime dateTime;
-    private String productName;
-    private String customerCode;
     private int quantity;
-    private double sellPrice;
+    private String revenue;
     private String soldBy;
     @OneToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
     public SalesInfo(){
 
     }
@@ -40,22 +42,6 @@ public class SalesInfo {
         this.dateTime = dateTime;
     }
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getCustomerCode() {
-        return customerCode;
-    }
-
-    public void setCustomerCode(String customerCode) {
-        this.customerCode = customerCode;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -64,12 +50,12 @@ public class SalesInfo {
         this.quantity = quantity;
     }
 
-    public double getSellPrice() {
-        return sellPrice;
+    public String getRevenue() {
+        return revenue;
     }
 
-    public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setRevenue(String revenue) {
+        this.revenue = revenue;
     }
 
     public String getSoldBy() {
@@ -86,5 +72,13 @@ public class SalesInfo {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
