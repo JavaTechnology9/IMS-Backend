@@ -9,7 +9,6 @@ public class CurrentStock {
     @GeneratedValue
     @Column(name = "current_stock_id")
     private long currentStockId;
-    private String productCode;
     private int quantity;
     @OneToOne
     @JoinColumn(name = "product_id")
@@ -27,14 +26,6 @@ public class CurrentStock {
 
     public void setCurrentStockId(long currentStockId) {
         this.currentStockId = currentStockId;
-    }
-
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
     }
 
     public int getQuantity() {

@@ -7,8 +7,8 @@ public class PurchaseDetails {
     private String supplierName;
     private String productName;
     private int quantity;
-    private String costPrice;
-    private String sellingPrice;
+    private double costPrice;
+    private double sellingPrice;
     private String brand;
 
     public String getSupplierName() {
@@ -35,19 +35,19 @@ public class PurchaseDetails {
         this.quantity = quantity;
     }
 
-    public String getCostPrice() {
+    public double getCostPrice() {
         return costPrice;
     }
 
-    public void setCostPrice(String costPrice) {
+    public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
     }
 
-    public String getSellingPrice() {
+    public double getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(String sellingPrice) {
+    public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 

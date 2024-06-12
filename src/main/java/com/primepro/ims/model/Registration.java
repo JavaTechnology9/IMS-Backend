@@ -13,6 +13,8 @@ public class Registration {
     private String password;
     private String mobileNo;
 
+    private String fullName;
+
     public long getId() {
         return id;
     }
@@ -43,5 +45,13 @@ public class Registration {
 
     public void setMobileNo(String mobileNo) {
         this.mobileNo = mobileNo;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

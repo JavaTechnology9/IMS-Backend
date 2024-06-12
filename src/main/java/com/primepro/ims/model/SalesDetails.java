@@ -3,7 +3,7 @@ package com.primepro.ims.model;
 public class SalesDetails {
     private String productName;
     private String soldBy;
-    private String sellPrice;
+    private double sellPrice;
     private int quantity;
 
     public String getProductName() {
@@ -22,11 +22,11 @@ public class SalesDetails {
         this.soldBy = soldBy;
     }
 
-    public String getSellPrice() {
+    public double getSellPrice() {
         return sellPrice;
     }
 
-    public void setSellPrice(String sellPrice) {
+    public void setSellPrice(double sellPrice) {
         this.sellPrice = sellPrice;
     }
 

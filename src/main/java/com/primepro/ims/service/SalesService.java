@@ -1,17 +1,13 @@
 package com.primepro.ims.service;
 
-import com.primepro.ims.model.Customer;
-import com.primepro.ims.model.Product;
-import com.primepro.ims.model.SalesDetails;
-import com.primepro.ims.model.SalesInfo;
-import com.primepro.ims.repository.CustomerRepository;
-import com.primepro.ims.repository.ProductRepository;
-import com.primepro.ims.repository.SalesRepository;
+import com.primepro.ims.model.*;
+import com.primepro.ims.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -25,6 +21,12 @@ public class SalesService {
     @Autowired
     private CustomerRepository customerRepository;
 
+    @Autowired
+    private PurchaseRepository purchaseRepository;
+
+    @Autowired
+    private CurrentStockRepository currentStockRepository;
+
     public ResponseEntity<String> addSalesRecord(SalesDetails salesDetails){
         Product product = loadProduct(salesDetails.getProductName());
         Customer customer = loadCustomer(salesDetails.getSoldBy());
@@ -32,11 +34,31 @@ public class SalesService {
         salesInfo.setDateTime(LocalDateTime.now());
         salesInfo.setSoldBy(salesDetails.getSoldBy());
         salesInfo.setRevenue(revenue(salesDetails.getSellPrice(),product.getCostPrice()));
+        salesInfo.setQuantity(salesDetails.getQuantity());
         salesInfo.setCustomer(customer);
         salesInfo.setProduct(product);
         SalesInfo save = salesRepository.save(salesInfo);
+        saveCurrentStock(salesDetails,product);
         return ResponseEntity.ok("Successfully added sales record");
 
+    }
+
+    private void saveCurrentStock(SalesDetails salesDetails, Product product) {
+        PurchaseInfo purchaseInfo = loadPurchase(product);
+        if(Objects.nonNull(purchaseInfo)){
+            CurrentStock currentStock=new CurrentStock();
+            currentStock.setQuantity(purchaseInfo.getQuantity()-salesDetails.getQuantity());
+            currentStock.setProducts(product);
+            currentStock.setPurchaseInfo(purchaseInfo);
+            currentStockRepository.save(currentStock);
+        }
+
+    }
+
+    private PurchaseInfo loadPurchase(Product product) {
+        Optional<PurchaseInfo> byProductId = purchaseRepository.findByProductId(product.getId());
+        if(byProductId.isPresent()) return byProductId.get();;
+        return null;
     }
 
     private Customer loadCustomer(String customerName) {
@@ -46,8 +68,8 @@ public class SalesService {
         return null;
     }
 
-    private String revenue(String sellingPrice, String costPrice) {
-        return String.valueOf(Double.parseDouble(sellingPrice) - Double.parseDouble(costPrice));
+    private double revenue(double sellingPrice, double costPrice) {
+        return sellingPrice - costPrice;
     }
 
     private Product loadProduct(String productName) {

@@ -4,6 +4,8 @@ public class LoginResponse {
     private String username;
     private String token;
 
+    private String fullName;
+
     public String getUsername() {
         return username;
     }
@@ -18,5 +20,13 @@ public class LoginResponse {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 }

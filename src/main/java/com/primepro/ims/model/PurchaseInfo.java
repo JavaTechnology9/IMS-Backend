@@ -12,7 +12,9 @@ public class PurchaseInfo {
     private long purchaseId;
     private LocalDateTime purchaseDate;
     private int quantity;
-    private String price;
+    private double price;
+
+    private double totalCost;
 
     @OneToOne
     @JoinColumn(name = "supplier_id")
@@ -49,11 +51,11 @@ public class PurchaseInfo {
         this.quantity = quantity;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -71,5 +73,13 @@ public class PurchaseInfo {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public double getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
     }
 }

@@ -1,5 +1,6 @@
 package com.primepro.ims.controllers;
 
+import com.primepro.ims.exception.EmailException;
 import com.primepro.ims.model.Login;
 import com.primepro.ims.model.LogoutRequest;
 import com.primepro.ims.service.LoginService;
@@ -21,7 +22,11 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> validateLogin(@RequestBody Login login) {
         if (Objects.nonNull(login)) {
-            return loginService.validateLogin(login);
+            try {
+                return loginService.validateLogin(login);
+            } catch (EmailException e) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            }
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username & password");
     }

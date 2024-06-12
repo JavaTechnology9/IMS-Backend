@@ -34,6 +34,7 @@ public class PurchaseService {
         purchaseInfo.setPrice(purchaseDetails.getCostPrice());
         purchaseInfo.setQuantity(purchaseDetails.getQuantity());
         purchaseInfo.setProduct(saveProduct(purchaseDetails));
+        purchaseInfo.setTotalCost(totalCost(purchaseDetails.getCostPrice(),purchaseDetails.getQuantity()));
         try{
             PurchaseInfo save = purchaseRepository.save(purchaseInfo);
             if (Objects.nonNull(save)) {
@@ -60,7 +61,7 @@ public class PurchaseService {
         product.setProductCode(CommonUtils.generateCode(purchaseInfo.getProductName()));
         product.setProductName(purchaseInfo.getProductName());
         product.setProductBrand(purchaseInfo.getBrand());
-        product.setQuantity(purchaseInfo.getQuantity());
+        //product.setQuantity(purchaseInfo.getQuantity());
         product.setCostPrice(purchaseInfo.getCostPrice());
         product.setSellingPrice(purchaseInfo.getSellingPrice());
         try{
@@ -78,7 +79,7 @@ public class PurchaseService {
             productDetails.setProductCode(purchaseInfo.getProduct().getProductCode());
             productDetails.setProductName(purchaseInfo.getProduct().getProductName());
             productDetails.setQuantity(purchaseInfo.getQuantity());
-            productDetails.setTotalCost(totalCost(purchaseInfo.getPrice(),purchaseInfo.getQuantity()));
+            productDetails.setTotalCost(purchaseInfo.getTotalCost());
             productDetails.setPurchaseId(purchaseInfo.getPurchaseId());
             productDetailsList.add(productDetails);
 
@@ -87,7 +88,7 @@ public class PurchaseService {
 
     }
 
-    private double totalCost(String price, int quantity) {
-        return  Double.parseDouble(price)*quantity;
+    private double totalCost(double price, int quantity) {
+        return  price*quantity;
     }
 }

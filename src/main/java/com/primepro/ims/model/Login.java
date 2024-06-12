@@ -14,9 +14,9 @@ public class Login {
     private String username;
     private String password;
 
-    private LocalDateTime loginInTime;
+    private LocalDateTime loginTime;
 
-    private LocalDateTime loginOutTime;
+    private LocalDateTime logoutTime;
 
     public String getUsername() {
         return username;
@@ -42,19 +42,19 @@ public class Login {
         this.password = password;
     }
 
-    public LocalDateTime getLoginInTime() {
-        return loginInTime;
+    public LocalDateTime getLoginTime() {
+        return loginTime;
     }
 
-    public void setLoginInTime(LocalDateTime loginInTime) {
-        this.loginInTime = loginInTime;
+    public void setLoginTime(LocalDateTime loginTime) {
+        this.loginTime = loginTime;
     }
 
-    public LocalDateTime getLoginOutTime() {
-        return loginOutTime;
+    public LocalDateTime getLogoutTime() {
+        return logoutTime;
     }
 
-    public void setLoginOutTime(LocalDateTime loginOutTime) {
-        this.loginOutTime = loginOutTime;
+    public void setLogoutTime(LocalDateTime logoutTime) {
+        this.logoutTime = logoutTime;
     }
 }

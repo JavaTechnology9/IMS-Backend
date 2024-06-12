@@ -1,6 +1,7 @@
 package com.primepro.ims.service;
 
 import com.primepro.ims.config.JwtTokenProvider;
+import com.primepro.ims.exception.EmailException;
 import com.primepro.ims.model.LoginResponse;
 import com.primepro.ims.model.LogoutRequest;
 import com.primepro.ims.repository.LoginRepository;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -32,7 +34,7 @@ public class LoginService {
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
 
-    public ResponseEntity<?> validateLogin(Login login) {
+    public ResponseEntity<?> validateLogin(Login login) throws EmailException {
         Optional<Registration> byUsername = repository.findByUsername(login.getUsername());
         if (byUsername.isPresent()) {
             Registration registration = byUsername.get();
@@ -40,11 +42,12 @@ public class LoginService {
                 Login login1=new Login();
                 login1.setUsername(registration.getUsername());
                 login1.setPassword(registration.getPassword());
-                login1.setLoginInTime(LocalDateTime.now());
+                login1.setLoginTime(LocalDateTime.now());
                 loginRepository.save(login1);
                 LoginResponse loginResponse=new LoginResponse();
-                loginResponse.setUsername(login1.getUsername());
+                loginResponse.setFullName(registration.getFullName());
                 loginResponse.setToken(jwtTokenProvider.generateToken(login1));
+                loginResponse.setUsername(registration.getUsername());
                 emailService.sendWelcomeEmail(login.getUsername(),"Successfully Login");
                 return ResponseEntity.ok(loginResponse);
             }
@@ -55,15 +58,15 @@ public class LoginService {
     }
 
     public ResponseEntity<?> logoutUser(LogoutRequest logoutRequest) {
-        Optional<Login> byUsername = loginRepository.findByUsername(logoutRequest.getUsername());
-        if (byUsername.isPresent()) {
-            Login login = byUsername.get();
-            login.setLoginOutTime(LocalDateTime.now());
-            loginRepository.save(login);
-            return ResponseEntity.ok("Successfully Logout");
-        }else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username not found");
+        Iterable<Login> byUsername = loginRepository.findByUsername(logoutRequest.getUsername());
+        for (Login login : byUsername) {
+            if(Objects.isNull(login.getLogoutTime())){
+                login.setLogoutTime(LocalDateTime.now());
+                loginRepository.save(login);
+                return ResponseEntity.ok("Successfully Logout");
+            }
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Username not found");
     }
 
     public Iterable<Login> loadAllUsers() {

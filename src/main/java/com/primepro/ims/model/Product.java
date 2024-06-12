@@ -11,15 +11,12 @@ public class Product {
     private long id;
     private String productCode;
     private String productName;
-    private String costPrice;
-    private String sellingPrice;
+    private double costPrice;
+    private double sellingPrice;
     private String productBrand;
-
-    private int quantity;
 
     public Product() {
     }
-
 
     public long getId() {
         return id;
@@ -45,19 +42,19 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getCostPrice() {
+    public double getCostPrice() {
         return costPrice;
     }
 
-    public void setCostPrice(String costPrice) {
+    public void setCostPrice(double costPrice) {
         this.costPrice = costPrice;
     }
 
-    public String getSellingPrice() {
+    public double getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(String sellingPrice) {
+    public void setSellingPrice(double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
@@ -69,11 +66,4 @@ public class Product {
         this.productBrand = productBrand;
     }
 
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

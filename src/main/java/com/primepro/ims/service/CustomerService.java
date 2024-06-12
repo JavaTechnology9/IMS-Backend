@@ -1,5 +1,6 @@
 package com.primepro.ims.service;
 
+import com.primepro.ims.exception.EmailException;
 import com.primepro.ims.model.Customer;
 import com.primepro.ims.repository.CustomerRepository;
 import com.primepro.ims.util.EmailService;
@@ -19,7 +20,7 @@ public class CustomerService {
     @Autowired
     private EmailService emailService;
 
-    public ResponseEntity<String> addCustomer(Customer customer){
+    public ResponseEntity<String> addCustomer(Customer customer) throws EmailException {
         customer.setCustomerCode(generateCode(customer.getCustomerName()));
         if(Objects.nonNull(customerRepository.save(customer))){
             emailService.sendWelcomeEmail(customer.getEmail(),"Welcome to IMS Application");

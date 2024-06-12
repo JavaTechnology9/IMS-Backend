@@ -1,17 +1,20 @@
 package com.primepro.ims.util;
 
+import com.primepro.ims.exception.EmailException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
+import java.net.UnknownHostException;
+
 @Component
 public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
-    public  void sendWelcomeEmail(String email, String subject){
+    public  void sendWelcomeEmail(String email, String subject) throws EmailException {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             message.setFrom("java_primepro@outlook.com");
@@ -19,8 +22,9 @@ public class EmailService {
             message.setSubject(subject);
             message.setContent(getHtmlWelcomeEmail(email), "text/html; charset=utf-8");
             mailSender.send(message);
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            System.out.println("Email send successfully");
+        } catch ( MessagingException e) {
+            throw new EmailException(e.getMessage());
         }
     }
     private String getHtmlWelcomeEmail(String userName) {

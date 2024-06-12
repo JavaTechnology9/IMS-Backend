@@ -13,7 +13,7 @@ public class SalesInfo {
     private long salesId;
     private LocalDateTime dateTime;
     private int quantity;
-    private String revenue;
+    private double revenue;
     private String soldBy;
     @OneToOne
     @JoinColumn(name = "product_id")
@@ -50,11 +50,11 @@ public class SalesInfo {
         this.quantity = quantity;
     }
 
-    public String getRevenue() {
+    public double getRevenue() {
         return revenue;
     }
 
-    public void setRevenue(String revenue) {
+    public void setRevenue(double revenue) {
         this.revenue = revenue;
     }
 
